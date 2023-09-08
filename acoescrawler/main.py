@@ -9,7 +9,7 @@ driver_path = 'C:\\Users\\rodmi\\Desktop\\Programação\\Python\\drivers\\chrome
 
 # Inicialize o serviço do Chrome
 chrome_service = Service(driver_path)
-
+#teste para segundo commit
 # Inicialize o driver do Selenium
 driver = webdriver.Chrome(service=chrome_service)
 
@@ -32,5 +32,5 @@ valor = value_element.text
 # Imprima o valor coletado
 print('Valor do DY:', valor)
 
-# Feche o navegador
+# Feche o navegadors
 driver.quit()
