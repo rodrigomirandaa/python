@@ -14,9 +14,10 @@ DISCONNECT_MESSAGE = "!DISCONNECT"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
-
+clients = {}
 
 def handle_client(conn, addr):
+    clients[conn] = addr
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
     while connected:
@@ -27,8 +28,11 @@ def handle_client(conn, addr):
             if msg == DISCONNECT_MESSAGE:
                 connected = False
             print(f"[{addr}] {msg}")
-        conn.send("Msg received".encode(FORMAT))
-
+            for client, ip in clients.items();
+                if ip == addr:
+                    pass
+                else:
+                    client.send(f"[{addr}] {msg}".encode(FORMAT))
     conn.close()
 
 
