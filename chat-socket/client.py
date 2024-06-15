@@ -47,16 +47,13 @@ def send_message(msg):
     client.send(send_length)
     client.send(message)
 
-# Iniciar threads para enviar e receber mensagens
 thread_recv = threading.Thread(target=handle_client)
 thread_recv.start()
 
 thread_send = threading.Thread(target=send)
 thread_send.start()
 
-# Esperar que ambas as threads terminem
 thread_recv.join()
 thread_send.join()
 
-# Fechar a conexão com o servidor
 client.close()

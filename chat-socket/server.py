@@ -4,7 +4,6 @@ import threading
 HEADER = 64
 PORT = 5050
 SERVER = "192.168.67.135"
-# Another way to get the local IP address automatically
 # SERVER = socket.gethostbyname(socket.gethostname())
 print(SERVER)
 print(socket.gethostname())
