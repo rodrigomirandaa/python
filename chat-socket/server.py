@@ -3,9 +3,9 @@ import threading
 
 HEADER = 64
 PORT = 5050
-# SERVER = ""
+SERVER = "192.168.67.135"
 # Another way to get the local IP address automatically
-SERVER = socket.gethostbyname(socket.gethostname())
+# SERVER = socket.gethostbyname(socket.gethostname())
 print(SERVER)
 print(socket.gethostname())
 ADDR = (SERVER, PORT)
@@ -21,20 +21,23 @@ def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
     connected = True
     while connected:
-        msg_length = conn.recv(HEADER).decode(FORMAT)
-        if msg_length:
-            msg_length = int(msg_length)
-            msg = conn.recv(msg_length).decode(FORMAT)
-            if msg == DISCONNECT_MESSAGE:
-                connected = False
-            print(f"[{addr}] {msg}")
-            for client, ip in clients.items();
-                if ip == addr:
-                    pass
-                else:
-                    client.send(f"[{addr}] {msg}".encode(FORMAT))
+        try:
+            msg_length = conn.recv(HEADER).decode(FORMAT)
+            if msg_length:
+                msg_length = int(msg_length)
+                msg = conn.recv(msg_length).decode(FORMAT)
+                if msg == DISCONNECT_MESSAGE:
+                    connected = False
+                print(f"[{addr}] {msg}")
+                for client, ip in clients.items():
+                    if ip == addr:
+                        pass
+                    else:
+                        client.send(f"[{addr}] {msg}".encode(FORMAT))
+        except:
+            connected = False
     conn.close()
-
+    clients.pop(conn, None)
 
 def start():
     server.listen()
@@ -43,7 +46,7 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
 
 print("[STARTING] server is starting...")
